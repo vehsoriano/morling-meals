@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import React from 'react';
+import { HashRouter, Route, Switch } from 'react-router-dom';
+
+import Dashboard from './Components/Dashboard'
+import AdminDashboard from './Components/AdminDashboard'
+import Home from './Components/Home'
+
+import './App.scss';
+
+const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <p>Group 8 - Verrell, Jyothsna and Kamal</p>
-    </div>
+    <HashRouter basename='/'>
+      <React.Suspense fallback={loading()}>
+        
+        <Switch>
+          <Route exact path="/" name="Home Page" render={props => <Home {...props}/>} />
+          <Route exact path="/dashboard" name="Home Page" render={props => <Dashboard {...props}/>} />
+          <Route exact path="/admin" name="Home Page" render={props => <AdminDashboard {...props}/>} />
+        </Switch>
+
+      </React.Suspense>
+  </HashRouter>
   );
 }
 
