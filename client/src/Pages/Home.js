@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Header from './Header'
+import Header from '.././Components/Header'
 import Moment from 'react-moment';
 import moment from 'moment'
 import {
@@ -66,6 +66,8 @@ function Home({props}) {
     const dateWeek = moment().format('dddd');
     var currentHour = moment().format("HH")
 
+    console.log("Date: " + dateToday);
+
     const MOTD = <div className="motd">
         { 
             currentHour < 12 ? 
@@ -87,6 +89,7 @@ function Home({props}) {
         <div className="carousel-holder">
             <div className="date">
                 <p className="date-today">{dateToday}</p>
+                
                 <p className="date-week">{dateWeek}</p>
             </div>
             {MOTD}

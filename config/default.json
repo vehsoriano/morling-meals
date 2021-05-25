@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://admin:morling-meal@cluster0.zkso4.mongodb.net/morlingdb?retryWrites=true&w=majority",
+    "jwtToken": "musecretetoken"
+  }

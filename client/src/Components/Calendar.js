@@ -73,6 +73,10 @@ export default function Calendar({ value, onChange }) {
     return value.format("YYYY");
   }
 
+  function orderToday(e) {
+    console.log(e.target);
+  }
+
 
   return (
     <div className="calendar">
@@ -107,8 +111,9 @@ export default function Calendar({ value, onChange }) {
                     onChange(day);
                     }}
                 >
-                    <div className={dayStyles(day)}>
-                    {day.format("D").toString()}
+                    <div className={dayStyles(day)} onClick={orderToday}>
+                      <span></span>
+                      {day.format("D").toString()}
                     </div>
                 </div>
                 ))}

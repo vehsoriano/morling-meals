@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import {
   Collapse,
   Navbar,
@@ -27,6 +28,7 @@ function Header({props}) {
           </NavItem>
         </Nav>
       </Collapse>
+      <Link className="button-link" to='/login'>Login</Link>
     </Navbar>
   );
 }

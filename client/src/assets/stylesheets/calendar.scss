@@ -12,6 +12,7 @@
         font-family: var(--font-book);
         font-weight: 700;
         display: flex;
+        margin: 15px 0;
     }
 
     .day-names {
@@ -26,16 +27,22 @@
         border: 1px solid var(--light-blue);
     }
 
+    .header .current {
+        font-size: 25px;
+    }
+
     .header .previous {
         flex: 1;
         text-align: left;
         margin-left: 1rem;
+        font-size: 40px;
     }
 
     .header .next {
         flex: 1;
         text-align: right;
         margin-right: 1rem;
+        font-size: 40px;
     }
 
     .week {
@@ -69,21 +76,29 @@
     }
 
     .day div {
-        margin: 50px auto;
-        width: 54px;
-        height: 44px;
+        
         position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        width: 100%;
+        height: 150px;
+        
         color: var(--black);
         z-index: 100;
         line-height: 44px;
+
+        cursor: pointer;
     }
 
     .day div.before {
-        color: var(--grey);
+        color: black;
+        background-color: lightgrey;
     }
 
     .day div.selected {
-        background-color: var(--red);
+        background-color: #504949;
         color: var(--white);
         font-weight: bold;
     }
