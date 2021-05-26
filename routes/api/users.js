@@ -43,6 +43,7 @@ router.post(
         first_name,
         last_name,
         email,
+        role,
         password
       } = req.body;
   
@@ -63,6 +64,7 @@ router.post(
           first_name,
           last_name,
           email,
+          role,
           password
         });
   
@@ -108,21 +110,13 @@ router.post(
     const {
       first_name,
       last_name,
-      email,
-      password
     } = req.body;
     try {
       // update user
       const user = await User.findById(req.params.user_id);
       user.first_name = first_name;
       user.last_name = last_name;
-      user.email = email;
-      if (password) {
-        // encrypt
-        const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(password, salt);
-      }
-      user.save();
+      await user.save();
       res.json({
         data: {
           status: "success",
@@ -139,7 +133,6 @@ router.post(
   router.delete("/delete/:user_id", async (req, res) => {
     try {
       await User.deleteOne({ _id: req.params.user_id });
-      await RidersProfile.deleteOne({ rider_user_id: req.params.user_id });
       res.json({
         data: {
           status: "success",
@@ -163,5 +156,22 @@ router.post(
       res.status(500).send("Server error");
     }
   }); 
+
+// get single user
+router.get("/:user_id", async (req,res) => {
+    try {
+        const user = await User.findById(req.params.user_id);
+        res.json(user);
+        res.json({
+            data: {
+              status: "success",
+              msg: "Profile Updated"
+            }
+          });
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send("Server error")
+    }
+})
 
   module.exports = router;

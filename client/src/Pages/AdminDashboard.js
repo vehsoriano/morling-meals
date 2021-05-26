@@ -1,70 +1,20 @@
-import React, { Component, Suspense, useState } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import React, {useEffect, useState } from 'react';
+import { Redirect, } from 'react-router-dom';
 import axios from 'axios';
 import {
-  Collapse,
   Navbar,
-  NavbarToggler,
   NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
   Button,
-  TabContent, 
-  TabPane, 
-  Card, 
-  CardTitle, 
-  CardText, 
-  Row, 
-  Col,
-  Label,
-  FormGroup,
-  Input,
-  Form
 } from 'reactstrap';
-import classnames from 'classnames';
-
 
 function Admin({...props}) {
 
-  const [value, setValue] = useState({})
+  const [user, setUser] = useState([])
 
-  const handleOnchange = (e) => {
-    e.persist()
-    console.log(e.target.value)
-    console.log(e.target.name)
-
-    setValue(prevState =>({
-      ...prevState, [e.target.name]: e.target.value
-    }))
-  }
-
-
-  const reqParam = {
-    first_name: value.first_name,
-    last_name: value.last_name,
-    email: value.email,
-    password: value.password
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log('submit')
-    axios
-      .post(`http://localhost:5000/api/users/`, reqParam)
-      .then(res => {
-        console.log(res);
-        if(res.data.data.status === "success") {
-          alert(res.data.data.msg)
-        } else {
-          alert(res.data.data.msg)
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
-    }
-
+  
+  useEffect(() => {
+    getUsers()
+  }, [])
 
   function signOut(e) {
     e.preventDefault()
@@ -72,28 +22,125 @@ function Admin({...props}) {
     props.history.push('/login')
   }
 
+  function getUsers() {
+    axios
+    .get('http://localhost:5000/api/users/')
+    .then(res => {
+      setUser(res.data);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }
+
   const key = localStorage.getItem('token')
 
-  const [activeTab, setActiveTab] = useState('1');
-
-  const toggle = tab => {
-    if(activeTab !== tab) setActiveTab(tab);
+  const editDetails = (id) => {
+    console.log(id)
+    props.history.push(`/users/update/${id}`)
   }
 
   return (
     <>
-        {
-          key ? (
-            <Navbar className="header">
-              <NavbarBrand href="/">Morling Admin Dashboard</NavbarBrand>
-              <Button onClick={signOut} className="button-link">Signout</Button>
-            </Navbar>
-          ) : (
-            <Redirect to="/login" />
-          )
-        }
-        <main className="admin">
-          <div>
+      {
+        key ? (
+          <Navbar className="header">
+            <NavbarBrand href="/admin">Morling Admin Dashboard</NavbarBrand>
+            <Button onClick={signOut} className="button-link">Signout</Button>
+          </Navbar>
+        ) : (
+          <Redirect to="/login" />
+        )
+      }
+      <main className="admin">
+        <section className="table">
+          <div className="container">
+            <h1 className="title">Morling Staffs and Students</h1>
+            <div className="tbl-header">
+              <table cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+            <div className="tbl-content">
+
+          </div>
+            <table cellpadding="0" cellSpacing="0" border="0">
+              <tbody>
+                {
+                  user.map((item,i) => {
+                    return (
+                      <tr key={i}>
+                        <td>{item.first_name + " " + item.last_name}</td>
+                        <td>{item.role}</td>
+                      <td><Button color="secondary" onClick={() => editDetails(item._id)}>Edit</Button></td>
+                    </tr>
+                    )
+                  })
+                }             
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </>
+  );
+}
+
+export default Admin;
+
+// 
+
+// const [value, setValue] = useState({})
+
+//   const handleOnchange = (e) => {
+//     e.persist()
+//     console.log(e.target.value)
+//     console.log(e.target.name)
+
+//     setValue(prevState =>({
+//       ...prevState, [e.target.name]: e.target.value
+//     }))
+//   }
+
+
+// const reqParam = {
+//   first_name: value.first_name,
+//   last_name: value.last_name,
+//   email: value.email,
+//   password: value.password
+// }
+
+// const handleSubmit = (e) => {
+//   e.preventDefault()
+//   console.log('submit')
+//   axios
+//     .post(`http://localhost:5000/api/users/`, reqParam)
+//     .then(res => {
+//       console.log(res);
+//       if(res.data.data.status === "success") {
+//         alert(res.data.data.msg)
+//       } else {
+//         alert(res.data.data.msg)
+//       }
+//     })
+//     .catch(err => {
+//       console.log(err);
+//     });
+//   }
+
+// const [activeTab, setActiveTab] = useState('1');
+
+//   const toggle = tab => {
+//     if(activeTab !== tab) setActiveTab(tab);
+//   }
+
+{/* <div>
             <Nav tabs>
               <NavItem>
                 <NavLink
@@ -138,10 +185,4 @@ function Admin({...props}) {
                 
               </TabPane>
             </TabContent>
-          </div>
-        </main>
-    </>
-  );
-}
-
-export default Admin;
+          </div> */}
