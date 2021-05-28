@@ -16,4 +16,14 @@
         background-color: #4388a5;
         border-radius: 5px;
     }
+
+    .header-brand {
+        color: #fff;
+        transition: all .3s ease;
+
+        &:hover {
+            text-decoration: none;
+            color: #8e8e8e;
+        }
+    }
 }

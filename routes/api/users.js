@@ -110,12 +110,14 @@ router.post(
     const {
       first_name,
       last_name,
+      role,
     } = req.body;
     try {
       // update user
       const user = await User.findById(req.params.user_id);
       user.first_name = first_name;
       user.last_name = last_name;
+      user.role = role;
       await user.save();
       res.json({
         data: {
