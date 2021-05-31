@@ -12,7 +12,7 @@ import {
   Input,
 } from 'reactstrap';
 
-function SingleUser({...props}) {
+function UpdateUser({...props}) {
     const { match } = props;
     let { userId } = match.params
 
@@ -108,4 +108,4 @@ function SingleUser({...props}) {
   );
 }
 
-export default SingleUser;
+export default UpdateUser;

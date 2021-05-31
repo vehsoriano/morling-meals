@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
 import moment from "moment";
 import Calendar from '.././Components/Calendar'
-import Header from '.././Components/Header'
 
-
-
-// Temporary
-
-import { Link } from "react-router-dom";
 import {
   Collapse,
   Navbar,
   NavbarToggler,
-  NavbarBrand,
   Nav,
   NavItem,
   NavLink,

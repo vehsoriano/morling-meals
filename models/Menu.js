@@ -20,6 +20,9 @@ const ItemSchema = new Schema({
     afternoon_tea: {
         type: String
     },
+    isAdded: {
+        type: Boolean
+    },
     isDeleted: {
         type: Boolean
     },    

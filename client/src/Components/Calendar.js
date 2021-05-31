@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import moment from "moment";
 
-export default function Calendar({ value, onChange }) {
+function Calendar({ value, onChange, goToAdd }) {
   function currMonthName() {
     return value.format("MMMM");
   }
@@ -73,9 +73,7 @@ export default function Calendar({ value, onChange }) {
     return value.format("YYYY");
   }
 
-  function orderToday(e) {
-    console.log(e.target);
-  }
+
 
 
   return (
@@ -94,6 +92,7 @@ export default function Calendar({ value, onChange }) {
                 {String.fromCharCode(187)}
             </div>
         </div>
+
         <div className="body">
             <div className="day-names">
             {["s", "m", "t", "w", "t", "f", "s"].map((d) => (
@@ -111,7 +110,7 @@ export default function Calendar({ value, onChange }) {
                     onChange(day);
                     }}
                 >
-                    <div className={dayStyles(day)} onClick={orderToday}>
+                    <div className={dayStyles(day)} onClick={() => goToAdd(day.format('YYYY-MM-DD'))}>
                       <span></span>
                       {day.format("D").toString()}
                     </div>
@@ -120,6 +119,11 @@ export default function Calendar({ value, onChange }) {
             </div>
             ))}
         </div>
+
+        
     </div>
   );
 }
+
+
+export default Calendar;

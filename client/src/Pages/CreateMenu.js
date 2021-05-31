@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios'
+import moment from "moment";
 import { Redirect, Link } from 'react-router-dom';
+import Calendar from '.././Components/Calendar'
 
 import {
     Navbar,
@@ -12,58 +14,64 @@ import {
     Input,
   } from 'reactstrap';
 
-function CreateUser({...props}) {
+function CreateMenu({...props}) {
     
     
     const key = localStorage.getItem('token')
 
     const [value, setValue] = useState({})
+    const [selectedDate, setSelectedDate] = useState(moment());
 
-    const handleOnchange = (e) => {
-        e.persist()
-        console.log(e.target.name)
-        console.log(e.target.value)
+    // const handleOnchange = (e) => {
+    //     e.persist()
+    //     console.log(e.target.name)
+    //     console.log(e.target.value)
 
-        setValue(prevState =>({
-        ...prevState, [e.target.name]: e.target.value
-        }))
-    }
+    //     setValue(prevState =>({
+    //     ...prevState, [e.target.name]: e.target.value
+    //     }))
+    // }
 
-    const reqParam = {
-        first_name: value.first_name,
-        last_name: value.last_name,
-        email: value.email,
-        password: value.password,
-        role: value.role
-    }
+    // const reqParam = {
+    //     first_name: value.first_name,
+    //     last_name: value.last_name,
+    //     email: value.email,
+    //     password: value.password,
+    //     role: value.role
+    // }
 
 
     
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log('submit')
-        console.log(reqParam)
-        axios
-            .post(`http://localhost:5000/api/users/`, reqParam)
-            .then(res => {
-            console.log(res);
-            if(res.data.data.status === "success") {
-                alert(res.data.data.msg)
-                props.history.push('/admin')
-            } else {
-                alert(res.data.data.msg)
-            }
-            })
-            .catch(err => {
-            console.log(err);
-        });
-    }
+    // const handleSubmit = (e) => {
+    // e.preventDefault()
+    // console.log('submit')
+    // console.log(reqParam)
+    // axios
+    //     .post(`http://localhost:5000/api/users/`, reqParam)
+    //     .then(res => {
+    //     console.log(res);
+    //     if(res.data.data.status === "success") {
+    //         alert(res.data.data.msg)
+    //         props.history.push('/admin')
+    //     } else {
+    //         alert(res.data.data.msg)
+    //     }
+    //     })
+    //     .catch(err => {
+    //     console.log(err);
+    //     });
+    // }
 
     function signOut(e) {
         e.preventDefault()
         localStorage.removeItem('token')
         props.history.push('/login')
       }
+
+    function goToAdd(date) {
+    props.history.push(`/menu/add/${date}`)
+    // props.history.push('/login')
+    }
 
   return (
       <>
@@ -78,8 +86,12 @@ function CreateUser({...props}) {
         )
       }
         <main className="create-user">
-
-            <Form className="form-holder" onSubmit={handleSubmit}>
+        <Calendar 
+            value={selectedDate} 
+            onChange={setSelectedDate} 
+            goToAdd={goToAdd}
+        />;
+            {/* <Form className="form-holder" onSubmit={handleSubmit}>
                 <h2>Create User</h2>
                 <FormGroup>
                     <Label for="role">Role</Label>
@@ -106,10 +118,10 @@ function CreateUser({...props}) {
                     <Input onChange={handleOnchange} type="password" name="password" id="password" placeholder="*******" />
                 </FormGroup>     
                 <Button className="btn-login">Register</Button>
-            </Form>
+            </Form> */}
         </main>
       </>
   );
 }
 
-export default CreateUser;
+export default CreateMenu;

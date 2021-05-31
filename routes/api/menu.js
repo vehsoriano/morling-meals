@@ -48,9 +48,22 @@ router.post(
       dinner, 
       vegetarian,
       afternoon_tea,
+      isAdded,
      } = req.body;
 
     try {
+
+      let item = await Item.findOne({ date });
+  
+      if (item) {
+        return res.json({
+          data: {
+            status: "warning",
+            msg: "There is already created menu for this date!"
+          }
+        });
+      }
+
       item = new Item({
         date, 
         morning_tea, 
@@ -58,6 +71,7 @@ router.post(
         dinner, 
         vegetarian,
         afternoon_tea,
+        isAdded,
       });
 
       await item.save();
@@ -86,43 +100,68 @@ router.get("/", async (req, res) => {
   }
 });
 
-// router.put("/update/:item_id", async (req, res) => {
-//   const { name, price, status, logo, recommended } = req.body;
-//   try {
-//     const item = await Item.findById(req.params.item_id);
-//     item.item_name = name;
-//     item.price = price;
-//     item.status = status;
-//     item.logo = logo;
-//     item.recommended = recommended;
-//     item.save();
-//     res.json({
-//       data: {
-//         status: "success",
-//         msg: "Item Updated!"
-//       },
-//       item
-//     });
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).send("Server error");
-//   }
-// });
 
-// router.delete("/delete/:item_id", async (req, res) => {
-//   try {
-//     await Item.deleteOne({ _id: req.params.item_id }).then(response => {
-//       return res.json({
-//         data: {
-//           status: "success",
-//           msg: "Item Successfully Deleted"
-//         }
-//       });
-//     });
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).send("Server error");
-//   }
-// });
+//Get menu items from date
+router.get("/:date", async (req, res) => {
+  try {
+    const menu = await Item.findOne({date: req.params.date});
+    res.json(menu);
+    res.json({
+        data: {
+          status: "success",
+          msg: "Success"
+        }
+      });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+
+router.put("/update/:item_id", async (req, res) => {
+  const {
+    morning_tea, 
+    lunch, 
+    dinner, 
+    vegetarian, 
+    afternoon_tea 
+  } = req.body;
+  try {
+    const item = await Item.findById(req.params.item_id);
+    item.morning_tea = morning_tea, 
+    item.lunch = lunch, 
+    item.dinner = dinner, 
+    item.vegetarian = vegetarian,
+    item.afternoon_tea = afternoon_tea,
+    item.save();
+    res.json({
+      data: {
+        status: "success",
+        msg: "Menu Updated!"
+      },
+      item
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+router.delete("/delete/:item_id", async (req, res) => {
+  try {
+    await Item.deleteOne({ _id: req.params.item_id }).then(response => {
+      return res.json({
+        data: {
+          status: "success",
+          msg: "Item Successfully Deleted"
+        }
+      });
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
 
 module.exports = router;
