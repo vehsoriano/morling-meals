@@ -6,6 +6,15 @@
     .input {
         text-transform: capitalize;
     }
+
+    .form-control {
+        font-weight: 600;
+    }
+
+    input::placeholder {
+        font-weight: 400;
+        color: #bebebe;
+    }
 }
 
 .capitalize {

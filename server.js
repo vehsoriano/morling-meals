@@ -21,6 +21,7 @@ app.get('/', (req, res) => res.status(200).send("Hello world"))
 app.use("/api/users", require("./routes/api/users"));
 app.use("/api/menu", require("./routes/api/menu"));
 app.use("/api/auth", require("./routes/api/auth"));
+app.use("/api/order", require("./routes/api/order"));
 
 // Listener
 app.listen(port, () => console.log(`listening in local port ${port}`))

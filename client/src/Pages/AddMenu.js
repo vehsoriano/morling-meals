@@ -38,7 +38,9 @@ function AddMenu({...props}) {
       date: date,
       morning_tea: value.morning_tea,
       lunch: value.lunch,
+      lunch_option_two: value.lunch_option_two,
       dinner: value.dinner,
+      dinner_option_two: value.dinner_option_two,
       vegetarian: value.vegetarian,
       afternoon_tea: value.afternoon_tea,
       isAdded: true
@@ -123,7 +125,9 @@ function AddMenu({...props}) {
       const updateParam = {
         morning_tea: menu.morning_tea,
         lunch: menu.lunch,
+        lunch_option_two: menu.lunch_option_two,
         dinner: menu.dinner,
+        dinner_option_two: menu.dinner_option_two,
         vegetarian: menu.vegetarian,
         afternoon_tea: menu.afternoon_tea,
       }
@@ -170,11 +174,19 @@ function AddMenu({...props}) {
                 <FormGroup>
                     <Label className="label" for="lunch">Lunch</Label>
                     <Input onChange={handleOnchange} type="text" name="lunch" id="lunch" placeholder="Carbonara Penne" />
-                </FormGroup>                
+                </FormGroup>  
+                <FormGroup>
+                    <Label className="label" for="lunch_option_two">Lunch Option 2</Label>
+                    <Input onChange={handleOnchange} type="text" name="lunch_option_two" id="lunch_option_two" placeholder="Carbonara Penne" />
+                </FormGroup>              
                 <FormGroup>
                     <Label className="label" for="dinner">Dinner</Label>
                     <Input onChange={handleOnchange} type="text" name="dinner" id="dinner" placeholder="Beef Steak with rice" />
                 </FormGroup> 
+                <FormGroup>
+                    <Label className="label" for="dinner_option_two">Dinner</Label>
+                    <Input onChange={handleOnchange} type="text" name="dinner_option_two" id="dinner_option_two" placeholder="Beef Steak with rice" />
+                </FormGroup>
                 <FormGroup>
                     <Label className="label" for="vegetarian">Vegetarian</Label>
                     <Input onChange={handleOnchange} type="text" name="vegetarian" id="vegetarian" placeholder="Resotto" />
@@ -195,10 +207,18 @@ function AddMenu({...props}) {
                 <FormGroup>
                     <Label className="label" for="lunch">Lunch</Label>
                     <Input onChange={handleUpdateOnchange} value={menu.lunch} type="text" name="lunch" id="lunch" placeholder="Carbonara Penne" />
-                </FormGroup>                
+                </FormGroup>       
+                <FormGroup>
+                    <Label className="label" for="lunch_option_two">Lunch Option 2</Label>
+                    <Input onChange={handleUpdateOnchange} value={menu.lunch_option_two} type="text" name="lunch_option_two" id="lunch_option_two" placeholder="Carbonara Penne" />
+                </FormGroup>           
                 <FormGroup>
                     <Label className="label" for="dinner">Dinner</Label>
                     <Input onChange={handleUpdateOnchange} value={menu.dinner} type="text" name="dinner" id="dinner" placeholder="Beef Steak with rice" />
+                </FormGroup> 
+                <FormGroup>
+                    <Label className="label" for="dinner_option_two">Dinner Option 2</Label>
+                    <Input onChange={handleUpdateOnchange} value={menu.dinner_option_two} type="text" name="dinner_option_two" id="dinner_option_two" placeholder="Beef Steak with rice" />
                 </FormGroup> 
                 <FormGroup>
                     <Label className="label" for="vegetarian">Vegetarian</Label>

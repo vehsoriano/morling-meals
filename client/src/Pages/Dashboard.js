@@ -22,13 +22,19 @@ function Dashboard({...props}) {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
 
-
+  
     // Temporary
 
     function signOut(e) {
       e.preventDefault()
       localStorage.removeItem('token')
+      localStorage.removeItem('user_id')
       props.history.push('/login')
+    }
+
+    function goToAdd(date) {
+      props.history.push(`/users/order/${date}`)
+      // props.history.push('/login')
     }
 
   return (
@@ -54,7 +60,7 @@ function Dashboard({...props}) {
 
     {/* Temporary */}
 
-      <Calendar value={selectedDate} onChange={setSelectedDate} />;
+      <Calendar value={selectedDate} onChange={setSelectedDate} goToAdd={goToAdd}/>;
     </div>
   );
 }

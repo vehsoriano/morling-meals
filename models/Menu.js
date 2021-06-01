@@ -11,7 +11,13 @@ const ItemSchema = new Schema({
     lunch: {
         type: String
     },
+    lunch_option_two: {
+        type: String
+    },
     dinner: {
+        type: String
+    },
+    dinner_option_two: {
         type: String
     },
     vegetarian: {

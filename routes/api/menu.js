@@ -45,7 +45,9 @@ router.post(
       date, 
       morning_tea, 
       lunch, 
+      lunch_option_two,
       dinner, 
+      dinner_option_two,
       vegetarian,
       afternoon_tea,
       isAdded,
@@ -68,7 +70,9 @@ router.post(
         date, 
         morning_tea, 
         lunch, 
+        lunch_option_two,
         dinner, 
+        dinner_option_two,
         vegetarian,
         afternoon_tea,
         isAdded,
@@ -123,7 +127,9 @@ router.put("/update/:item_id", async (req, res) => {
   const {
     morning_tea, 
     lunch, 
+    lunch_option_two,
     dinner, 
+    dinner_option_two,
     vegetarian, 
     afternoon_tea 
   } = req.body;
@@ -131,7 +137,9 @@ router.put("/update/:item_id", async (req, res) => {
     const item = await Item.findById(req.params.item_id);
     item.morning_tea = morning_tea, 
     item.lunch = lunch, 
+    item.lunch_option_two = lunch_option_two, 
     item.dinner = dinner, 
+    item.dinner_option_two = dinner_option_two, 
     item.vegetarian = vegetarian,
     item.afternoon_tea = afternoon_tea,
     item.save();

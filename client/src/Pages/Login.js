@@ -50,6 +50,7 @@ function Login({...props}) {
           if(res.data.data.status === "success") {
             props.history.push('/dashboard')
             localStorage.setItem('token', 'user')
+            localStorage.setItem('user_id', res.data.user._id)
           } else {
             alert(res.data.data.msg)
           }

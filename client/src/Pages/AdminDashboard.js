@@ -42,7 +42,7 @@ function Admin({...props}) {
               </Link>
             </Col>
             <Col className="box-holder" xs="4">
-              <Link to="/users" className="box">
+              <Link to="/orders" className="box">
                 <p className="box-title">Manage Orders</p>
               </Link>
             </Col>
