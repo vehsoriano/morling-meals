@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import moment from "moment";
 import Calendar from '.././Components/Calendar'
+import axios from 'axios'
+import { Link } from 'react-router-dom';
 
 import {
   Collapse,
@@ -16,6 +18,8 @@ import {
 
 function Dashboard({...props}) {
     const [selectedDate, setSelectedDate] = useState(moment());
+    const [user, setUser] = useState({})
+    const user_id = localStorage.getItem('user_id')
 
     // Temporary
 
@@ -37,6 +41,22 @@ function Dashboard({...props}) {
       // props.history.push('/login')
     }
 
+    useEffect(() => {
+      getUserData()
+    },[])
+
+    function getUserData() {
+      axios
+        .get(`http://localhost:5000/api/users/${user_id}`)
+        .then(res => {
+          console.log(res.data)
+            setUser(res.data)
+        })
+        .catch(err => {
+        console.log(err);
+      });
+    }
+
   return (
     <div>
 
@@ -47,10 +67,16 @@ function Dashboard({...props}) {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink href="/balance/">Balance</NavLink>
+              <NavLink disabled href="/"><strong>Hi, {user.first_name}</strong></NavLink>
+            </NavItem>
+            <li>
+              <Link className="nav-link" to="/my-orders">My Orders</Link>
+            </li>
+            <NavItem>
+              <NavLink href="/balance">Balance</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/help/">help</NavLink>
+              <NavLink href="/help">Help</NavLink>
             </NavItem>
             
           </Nav>

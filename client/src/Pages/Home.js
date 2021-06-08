@@ -20,12 +20,7 @@ import {
         src: 'https://wallpaperaccess.com/full/767033.jpg',
         altText: '',
         caption: ''
-    },
-    {
-        src: 'https://thehighdefinitionwallpapers.com/wp-content/uploads/2020/03/FoodsFoods-Delicious-and-spicy-pizza-wonderful-food-HD-wallpaper.jpg',
-        altText: '',
-        caption: ''
-    }    
+    }
 ];
 
 function Home({props}) {    

@@ -47,7 +47,7 @@ function Admin({...props}) {
               </Link>
             </Col>
             <Col className="box-holder" xs="4">
-              <Link to="menu" className="box">
+              <Link to="/menu" className="box">
                 <p className="box-title">Manage Calendar Menu</p>
               </Link>
             </Col>

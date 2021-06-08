@@ -57,6 +57,8 @@ router.post(
   }
 );
 
+
+//get all order
 router.get("/", async (req, res) => {
   try {
     const data = []
@@ -77,6 +79,71 @@ router.get("/", async (req, res) => {
         }) 
     }
     res.json(data);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+
+//update order
+router.put("/update/:order_id", async (req, res) => {
+  const {
+    lunch, 
+    dinner, 
+    vegetarian, 
+  } = req.body;
+  try {
+    const order = await Order.findById(req.params.order_id);
+    order.lunch = lunch, 
+    order.dinner = dinner, 
+    order.vegetarian = vegetarian,
+    order.save();
+    res.json({
+      data: {
+        status: "success",
+        msg: "Order Updated!"
+      },
+      order
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+//get user order
+router.get("/userorder/:user_id", async (req, res) => {
+    try {
+      const order = await Order.find();
+      var myOrder = order.filter(item => item.user_id == req.params.user_id);
+      res.json({
+            myOrder,
+            data: {
+                status: "Success",
+                msg: "Success!"
+            }
+      });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server error");
+    }
+});
+
+
+
+
+//delete order
+router.delete("/delete/:item_id", async (req, res) => {
+  try {
+    await Order.deleteOne({ _id: req.params.item_id }).then(response => {
+      return res.json({
+        data: {
+          status: "success",
+          msg: "Item Successfully Deleted"
+        }
+      });
+    });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");

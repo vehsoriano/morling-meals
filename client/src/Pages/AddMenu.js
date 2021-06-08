@@ -184,7 +184,7 @@ function AddMenu({...props}) {
                     <Input onChange={handleOnchange} type="text" name="dinner" id="dinner" placeholder="Beef Steak with rice" />
                 </FormGroup> 
                 <FormGroup>
-                    <Label className="label" for="dinner_option_two">Dinner</Label>
+                    <Label className="label" for="dinner_option_two">Dinner Option 2</Label>
                     <Input onChange={handleOnchange} type="text" name="dinner_option_two" id="dinner_option_two" placeholder="Beef Steak with rice" />
                 </FormGroup>
                 <FormGroup>
